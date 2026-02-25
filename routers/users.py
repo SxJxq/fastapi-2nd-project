@@ -1,6 +1,6 @@
 #CREATING A USER
 import modles, schemas,utils
-from fastapi import FastAPI, Response,status, HTTPException, Depends, APIRouter
+from fastapi import status, HTTPException, Depends, APIRouter
 from sqlalchemy.orm import Session
 from database import get_db
 from typing import List
