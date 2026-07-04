@@ -11,7 +11,7 @@ router= APIRouter(
 )
 
 #CREATE USER
-@router.post("/cr",status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)
+@router.post("/",status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)
 def creat_user(user:schemas.CreateUser, db: Session=Depends(get_db)):
 
     pre_email=db.query(modles.User).filter(modles.User.email == user.email).first()
@@ -48,7 +48,7 @@ def all_users(db: Session=Depends(get_db)):
 
 #DELETE A USER
 @router.post("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(id: int, user:schemas.CreateUser, db:Session=Depends(get_db)):
+def delete_user(id: int, db:Session=Depends(get_db)):
     deleted_user=db.query(modles.User).filter(modles.User.id == id).first()
 
     if not deleted_user:

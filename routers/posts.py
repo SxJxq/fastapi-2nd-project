@@ -12,13 +12,13 @@ router= APIRouter(
 
 #GET ALL POSTS
 @router.get("/",response_model=List[schemas.PostOut])
-def get_users(db:Session=Depends(get_db),current_user:int=Depends(oauth2.get_current_user), limit=10, skip=0, search=Optional[str]=""):
+def get_users(db:Session=Depends(get_db),current_user:int=Depends(oauth2.get_current_user), limit=10, skip=0, search:Optional[str]=""):
     posts=db.query(modles.Post).filter(modles.Post.contains(search).limit(limit).offset(skip)).all()
     return posts
 
 #GET ONE POST BY ID
 @router.get("/{id}",response_model=List[schemas.PostOut])
-def get_users(db:Session=Depends(get_db),current_user:int=Depends(oauth2.get_current_user), limit=10, skip=0, search=Optional[str]=""):
+def get_users(db:Session=Depends(get_db),current_user:int=Depends(oauth2.get_current_user), limit=10, skip=0, search:Optional[str]=""):
     post=db.query(modles.Post).filter(modles.Post.id == id).first()
     return post
 
@@ -48,8 +48,8 @@ def post_update(id:int,updated_post:schemas.PostCreate,db:Session=Depends(get_db
     return post
 
 #DELETE POST
-@router.put("/{id}",response_model=schemas.PostOut, status_code=status.HTTP_204_NO_CONTENT)
-def post_update(id:int,db:Session=Depends(get_db),current_user:int=Depends(oauth2.get_current_user), ):
+@router.put("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def post_update(id:int,db:Session=Depends(get_db),current_user:int=Depends(oauth2.get_current_user) ):
     post=db.query(modles.Post).filter(modles.Post.id == id)
 
     if post in None:
